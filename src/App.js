@@ -5,8 +5,8 @@ import './App.css';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Fadhlu', age: 24 },
-      { name: 'Sasa', age: 22 },
+      { id: 1, name: 'Fadhlu', age: 24 },
+      { id: 2, name: 'Sasa', age: 22 },
     ],
     showPerson: false,
   };
@@ -20,13 +20,19 @@ class App extends Component {
     });
   };
 
-  inputNameChangedHandler = event => {
-    this.setState({
-      persons: [
-        { name: 'Fadhlu', age: 24 },
-        { name: event.target.value, age: 19 },
-      ],
-    });
+  inputNameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => p.id === id);
+
+    const person = {
+      ...this.state.persons[personIndex],
+    };
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({ persons: persons });
   };
 
   togglePersonHandler = () => {
@@ -66,6 +72,10 @@ class App extends Component {
                 click={() => this.deletePersonHandler(index)}
                 name={person.name}
                 age={person.age}
+                key={person.id}
+                inputName={event =>
+                  this.inputNameChangedHandler(event, person.id)
+                }
               />
             );
           })}
