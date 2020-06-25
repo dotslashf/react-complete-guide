@@ -46,28 +46,34 @@ class App extends Component {
       border: '0px solid #fff',
     };
 
+    let persons = null;
+
+    if (this.state.showPerson) {
+      persons = (
+        <div>
+          <Person
+            name={this.state.persons[0].name}
+            age={this.state.persons[0].age}
+            inputName={this.inputNameChangedHandler}
+          />
+          <Person
+            name={this.state.persons[1].name}
+            age={this.state.persons[1].age}
+            click={this.switchNameHandler.bind(this, 'Fadhlu hihi')}
+            inputName={this.inputNameChangedHandler}
+          >
+            Hobby: Makan kuaci
+          </Person>
+        </div>
+      );
+    }
+
     return (
       <div className="App">
         <button style={btnStyle} onClick={this.togglePersonHandler}>
           Toggle Person
         </button>
-        {this.state.showPerson ? (
-          <div>
-            <Person
-              name={this.state.persons[0].name}
-              age={this.state.persons[0].age}
-              inputName={this.inputNameChangedHandler}
-            />
-            <Person
-              name={this.state.persons[1].name}
-              age={this.state.persons[1].age}
-              click={this.switchNameHandler.bind(this, 'Fadhlu hihi')}
-              inputName={this.inputNameChangedHandler}
-            >
-              Hobby: Makan kuaci
-            </Person>
-          </div>
-        ) : null}
+        {persons}
       </div>
     );
   }
