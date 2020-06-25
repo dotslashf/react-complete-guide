@@ -84,6 +84,8 @@ class App extends Component {
           })}
         </div>
       );
+
+      btnStyle.backgroundColor = '#e74c3c';
     }
 
     return (
