@@ -21,17 +21,20 @@ class App extends Component {
   };
 
   inputNameChangedHandler = (event, id) => {
+    // find index person
     const personIndex = this.state.persons.findIndex(p => p.id === id);
 
+    // assign person in persons list using personIndex
     const person = {
       ...this.state.persons[personIndex],
     };
 
+    // change value of person name
     person.name = event.target.value;
 
+    // copying persons array then assign index the new person value
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-
     this.setState({ persons: persons });
   };
 
