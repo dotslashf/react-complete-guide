@@ -11,3 +11,9 @@
 hr {
   border: 1px solid #aaa;
 }
+
+@media (min-width: 500px) {
+  .Person {
+    width: 450px;
+  }
+}

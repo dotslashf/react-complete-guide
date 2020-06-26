@@ -1,21 +1,7 @@
 import React, { Component } from 'react';
 import Person from './Person/Person';
-import styled from 'styled-components';
-import './App.css';
+import classes from './App.css';
 
-const StyledButton = styled.button`
-  background-color: ${props => (props.alt ? '#e74c3c' : '#3498db')};
-  color: #ecf0f1;
-  border-radius: 6px;
-  font: inherit;
-  padding: 8px 16px;
-  cursor: pointer;
-  border: 0px solid #fff;
-
-  &:hover {
-    background-color: ${props => (props.alt ? '#c0392b' : '#2980b9')};
-  }
-`;
 class App extends Component {
   state = {
     persons: [
@@ -68,19 +54,7 @@ class App extends Component {
   };
 
   render() {
-    // const btnStyle = {
-    //   backgroundColor: '#3498db',
-    //   color: '#ecf0f1',
-    //   borderRadius: '6px',
-    //   font: 'inherit',
-    //   padding: '8px 16px',
-    //   cursor: 'pointer',
-    //   border: '0px solid #fff',
-    //   ':hover': {
-    //     backgroundColor: '#2980b9',
-    //   },
-    // };
-
+    let btnClass = '';
     let persons = null;
 
     if (this.state.showPerson) {
@@ -102,24 +76,23 @@ class App extends Component {
         </div>
       );
 
-      // btnStyle.backgroundColor = '#e74c3c';
-      // btnStyle[':hover'] = {
-      //   backgroundColor: '#c0392b',
-      // };
+      btnClass = classes.Red;
     }
 
     const cssClasses = [];
     if (this.state.persons.length <= 1) {
-      cssClasses.push('red');
+      cssClasses.push(classes.red);
     }
     if (this.state.persons.length === 0) {
-      cssClasses.push('bold');
+      cssClasses.push(classes.bold);
     }
 
     return (
-      <div className="App">
+      <div className={classes.App}>
         <p className={cssClasses.join(' ')}>Just another example text</p>
-        <button onClick={this.togglePersonHandler}>Toggle Person</button>
+        <button className={btnClass} onClick={this.togglePersonHandler}>
+          Toggle Person
+        </button>
         {persons}
       </div>
     );
