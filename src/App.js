@@ -119,12 +119,7 @@ class App extends Component {
     return (
       <div className="App">
         <p className={cssClasses.join(' ')}>Just another example text</p>
-        <StyledButton
-          alt={this.state.showPerson}
-          onClick={this.togglePersonHandler}
-        >
-          Toggle Person
-        </StyledButton>
+        <button onClick={this.togglePersonHandler}>Toggle Person</button>
         {persons}
       </div>
     );
