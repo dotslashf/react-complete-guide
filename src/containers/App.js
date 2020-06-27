@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Person from './Person/Person';
+import Persons from '../components/Persons/Persons';
 import classes from './App.css';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 class App extends Component {
   state = {
@@ -54,29 +55,18 @@ class App extends Component {
   };
 
   render() {
-    let btnClass = '';
     let persons = null;
 
     if (this.state.showPerson) {
       persons = (
         <div>
-          {this.state.persons.map((person, index) => {
-            return (
-              <Person
-                click={() => this.deletePersonHandler(index)}
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                inputName={event =>
-                  this.inputNameChangedHandler(event, person.id)
-                }
-              />
-            );
-          })}
+          <Persons
+            persons={this.state.persons}
+            clicked={this.deletePersonHandler}
+            changed={this.inputNameChangedHandler}
+          />
         </div>
       );
-
-      btnClass = classes.Red;
     }
 
     const cssClasses = [];
@@ -89,10 +79,11 @@ class App extends Component {
 
     return (
       <div className={classes.App}>
-        <p className={cssClasses.join(' ')}>Just another example text</p>
-        <button className={btnClass} onClick={this.togglePersonHandler}>
-          Toggle Person
-        </button>
+        <Cockpit
+          persons={this.state.persons}
+          showPerson={this.state.showPerson}
+          clicked={this.togglePersonHandler}
+        />
         {persons}
       </div>
     );
