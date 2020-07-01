@@ -1,7 +1,26 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from './Cockpit.css';
 
 const Cockpit = props => {
+  // can use multiple useEffect
+  useEffect(() => {
+    console.log('[Cockpit.js] useEffect');
+    const timer = setTimeout(() => {
+      alert('Data saved to cloud');
+    }, 1000);
+    return () => {
+      clearTimeout(timer);
+      console.log('[Cockpit.js] cleanup work in useEffect');
+    };
+  }, []);
+
+  useEffect(() => {
+    console.log('[Cockpit.js] 2nd useEffect');
+    return () => {
+      console.log('[Cockpit.js] cleanup work in 2nd useEffect');
+    };
+  });
+
   let btnClass = '';
 
   if (props.showPerson) {
