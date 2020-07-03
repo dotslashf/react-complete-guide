@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+
 import Persons from '../components/Persons/Persons';
 import classes from './App.css';
 import Cockpit from '../components/Cockpit/Cockpit';
 import withClass from '../hoc/withClass';
 import Aux from '../hoc/Aux';
+import AuthContext from '../context/auth-context';
 
 class App extends Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class App extends Component {
     showPerson: false,
     showCockpit: true,
     changedCounter: 0,
+    authenticated: false,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -67,7 +70,7 @@ class App extends Component {
     // copying persons array then assign index the new person value
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    
+
     this.setState((prevState, props) => {
       return { persons: persons, changedCounter: prevState.changedCounter + 1 };
     });
@@ -77,6 +80,10 @@ class App extends Component {
     this.setState({
       showPerson: !this.state.showPerson,
     });
+  };
+
+  loginHandler = () => {
+    this.setState({ authenticated: true });
   };
 
   deletePersonHandler = personIndex => {
@@ -121,14 +128,16 @@ class App extends Component {
         >
           Show Cockpit
         </button>
-        {this.state.showCockpit ? (
-          <Cockpit
-            personsLength={this.state.persons.length}
-            showPerson={this.state.showPerson}
-            clicked={this.togglePersonHandler}
-          />
-        ) : null}
-        {persons}
+        <AuthContext.Provider value={{authenticated: this.state.authenticated, login: this.loginHandler}}>
+          {this.state.showCockpit ? (
+            <Cockpit
+              personsLength={this.state.persons.length}
+              showPerson={this.state.showPerson}
+              clicked={this.togglePersonHandler}
+            />
+          ) : null}
+          {persons}
+        </AuthContext.Provider>
       </Aux>
     );
   }
