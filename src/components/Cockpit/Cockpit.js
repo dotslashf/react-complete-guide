@@ -1,15 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Cockpit.css';
 
 const Cockpit = props => {
+  const toggleBtnRef = useRef(null);
+
   // can use multiple useEffect
   useEffect(() => {
     console.log('[Cockpit.js] useEffect');
-    const timer = setTimeout(() => {
-      console.log('Data saved to cloud');
-    }, 1000);
+    // const timer = setTimeout(() => {
+    //   console.log('Data saved to cloud');
+    // }, 1000);
+    toggleBtnRef.current.click();
     return () => {
-      clearTimeout(timer);
+      // clearTimeout(timer);
       console.log('[Cockpit.js] cleanup work in useEffect');
     };
   }, []);
@@ -38,7 +41,7 @@ const Cockpit = props => {
   return (
     <div className={classes.Cockpit}>
       <p className={cssClasses.join(' ')}>Just another example text</p>
-      <button className={btnClass} onClick={props.clicked}>
+      <button ref={toggleBtnRef} className={btnClass} onClick={props.clicked}>
         Toggle Person
       </button>
     </div>
