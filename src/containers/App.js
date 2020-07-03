@@ -18,6 +18,7 @@ class App extends Component {
     ],
     showPerson: false,
     showCockpit: true,
+    changedCounter: 0,
   };
 
   static getDerivedStateFromProps(props, state) {
@@ -66,7 +67,10 @@ class App extends Component {
     // copying persons array then assign index the new person value
     const persons = [...this.state.persons];
     persons[personIndex] = person;
-    this.setState({ persons: persons });
+    
+    this.setState((prevState, props) => {
+      return { persons: persons, changedCounter: prevState.changedCounter + 1 };
+    });
   };
 
   togglePersonHandler = () => {
