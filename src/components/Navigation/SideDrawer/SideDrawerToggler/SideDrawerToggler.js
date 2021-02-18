@@ -1,5 +1,13 @@
 import React from 'react';
 
-const sideDrawerToggler = props => <div onClick={props.clicked}>Menu</div>;
+import classes from './SideDrawerToggler.css';
+
+const sideDrawerToggler = props => (
+  <div className={classes.SideDrawerToggler} onClick={props.clicked}>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+);
 
 export default sideDrawerToggler;
